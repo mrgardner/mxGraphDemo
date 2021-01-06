@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import factory from 'mxgraph';
+import factory, {mxGraph, mxGraphExportObject } from 'mxgraph';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +8,8 @@ import factory from 'mxgraph';
 })
 export class AppComponent implements AfterViewInit {
   title = 'mxGraphDemo';
-  private graph: any;
-  private mx: any;
+  private mx: mxGraphExportObject;
+  private graph!: mxGraph;
   private vertexId: number = 1;
 
   @ViewChild('graphContainer') graphContainer!: ElementRef;
@@ -21,14 +21,13 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-
     this.graph = new this.mx.mxGraph(this.graphContainer.nativeElement);
     try {
       const parent = this.graph.getDefaultParent();
       this.graph.getModel().beginUpdate();
-      const vertex1 = this.graph.insertVertex(parent, this.vertexId, `Vertex ${this.vertexId}`, 0, 0, 200, 80);
+      const vertex1 = this.graph.insertVertex(parent, this.vertexId.toString(), `Vertex ${this.vertexId}`, 0, 0, 200, 80);
       this.vertexId = this.vertexId + 1;
-      const vertex2 = this.graph.insertVertex(parent, this.vertexId, `Vertex ${this.vertexId}`, 0, 0, 200, 80);
+      const vertex2 = this.graph.insertVertex(parent, this.vertexId.toString(), `Vertex ${this.vertexId}`, 0, 0, 200, 80);
       this.vertexId = this.vertexId + 1;
       this.graph.insertEdge(parent, '', '', vertex1, vertex2);
     } finally {
@@ -39,18 +38,45 @@ export class AppComponent implements AfterViewInit {
       const vertexID = evt.getProperty('cell');
       console.log(vertexID);
       if(vertexID ) {
-      console.log(`Vertex with id ${vertexID.id} was pressed`)
+        console.log(`Vertex with id ${vertexID.id} was pressed`)
       } else {
-      console.log(`Graph was clicked.`)
+       console.log(`Graph was clicked.`)
       }
     });
+
+    this.graph.popupMenuHandler.autoExpand = true;
+
+    this.graph.popupMenuHandler.factoryMethod = function(menu, cell, evt) {
+      if (cell) {
+        if(cell.edge){
+          menu.addItem('First edge option', '', function() {
+            alert('This is the first option of edge ');
+          });
+          menu.addItem('Second edge option', '', function(){
+            alert('This is the second option of edge ');
+          });
+        }
+        if(cell.vertex){
+          console.log(cell);
+          menu.addItem('First vertex option', '', function() {
+            alert('This is the first option of vertex ');
+          });
+          menu.addItem('Second vertex option', '', function() {
+            alert('This is the second option of vertex ');
+          });
+        }
+      }
+    }
+
+    // // Disables built-in context menu
+    this.mx.mxEvent.disableContextMenu(document.body);
   }
 
   drawShape() {
     try {
       const parent = this.graph.getDefaultParent();
       this.graph.getModel().beginUpdate();
-      const vertex1 = this.graph.insertVertex(parent, this.vertexId, `Vertex ${this.vertexId}`, 0, 0, 200, 80);
+      const vertex1 = this.graph.insertVertex(parent, this.vertexId.toString(), `Vertex ${this.vertexId}`, 0, 0, 200, 80);
       this.vertexId = this.vertexId + 1;
     } finally {
       this.graph.getModel().endUpdate();
