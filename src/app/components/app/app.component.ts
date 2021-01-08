@@ -34,6 +34,8 @@ export class AppComponent implements AfterViewInit {
       this.graph.getModel().endUpdate();
       new this.mx.mxHierarchicalLayout(this.graph).execute(this.graph.getDefaultParent());
     }
+
+    // Creates on click listener
     this.graph.addListener(this.mx.mxEvent.CLICK, (sender:any, evt: any) => {
       const vertexID = evt.getProperty('cell');
       console.log(vertexID);
@@ -44,9 +46,12 @@ export class AppComponent implements AfterViewInit {
       }
     });
 
-    this.graph.popupMenuHandler.autoExpand = true;
+    // Allows left clicking a cell or edge to open menu
+    this.graph.popupMenuHandler.useLeftButtonForPopup = true;
 
+    // Create popup menu
     this.graph.popupMenuHandler.factoryMethod = function(menu, cell, evt) {
+      menu.useLeftButtonForPopup = true;
       if (cell) {
         if(cell.edge){
           menu.addItem('First edge option', '', function() {
@@ -69,7 +74,7 @@ export class AppComponent implements AfterViewInit {
     }
 
     // // Disables built-in context menu
-    this.mx.mxEvent.disableContextMenu(document.body);
+    // this.mx.mxEvent.disableContextMenu(document.body);
   }
 
   drawShape() {
