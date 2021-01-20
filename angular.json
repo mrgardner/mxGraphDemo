@@ -28,9 +28,7 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/assets/resources/grapheditor.txt",
-              "src/assets/styles/default.xml"
+              "src/assets"
             ],
             "styles": [
               "src/styles.scss",
