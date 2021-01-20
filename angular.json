@@ -28,12 +28,35 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/resources/grapheditor.txt",
+              "src/assets/styles/default.xml"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/styles/grapheditor.css",
+              "src/assets/common.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/mxGraphUrl.js",
+              "src/assets/js/Init.js",
+              "src/assets/deflate/pako.min.js",
+              "src/assets/deflate/base64.js",
+              "src/assets/jscolor/jscolor.js",
+              "src/assets/sanitizer/sanitizer.min.js",
+              "src/assets/mxClient.js",
+              "src/assets/js/EditorUi.js",
+              "src/assets/js/Editor.js",
+              "src/assets/js/Sidebar.js",
+              "src/assets/js/Graph.js",
+              "src/assets/js/Format.js",
+              "src/assets/js/Shapes.js",
+              "src/assets/js/Actions.js",
+              "src/assets/js/Menus.js",
+              "src/assets/js/Toolbar.js",
+              "src/assets/js/Dialogs.js",
+              "src/assets/graphEditorInit.js"
+            ]
           },
           "configurations": {
             "production": {
