@@ -79,6 +79,7 @@ default=Default
 delete=Delete
 deleteColumn=Delete Column
 deleteRow=Delete Row
+demo=Demo
 diagram=Diagram
 diamond=Diamond
 diamondThin=Diamond (thin)

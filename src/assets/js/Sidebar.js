@@ -81,8 +81,8 @@ Sidebar.prototype.init = function()
 {
 	var dir = STENCIL_PATH;
 	
-	this.addSearchPalette(true);
-	this.addGeneralPalette(true);
+	this.addSearchPalette(false);
+	this.addGeneralPalette(false);
 	this.addMiscPalette(false);
 	this.addAdvancedPalette(false);
 	this.addBasicPalette(dir);
@@ -110,6 +110,8 @@ Sidebar.prototype.init = function()
 		 {'Wireless_Router_N': 'wireless router switch wap wifi access point wlan',
 		  'Router_Icon': 'router switch'});
 	this.setCurrentSearchEntryLibrary();
+
+	this.addDemoPalette(true);
 };
 
 /**
@@ -1304,6 +1306,27 @@ Sidebar.prototype.addMiscPalette = function(expand)
 	this.addPaletteFunctions('misc', mxResources.get('misc'), (expand != null) ? expand : true, fns);
 	this.setCurrentSearchEntryLibrary();
 };
+
+/**
+ * Adds the general palette to the sidebar.
+ */
+Sidebar.prototype.addDemoPalette = function(expand)
+{
+	var sb = this;
+	var lineTags = 'line lines connector connectors connection connections arrow arrows '
+	this.setCurrentSearchEntryLibrary('general', 'demo');
+
+	// Available shape selections
+	var fns = [
+		this.createVertexTemplateEntry('html=1;whiteSpace=wrap;shape=isoCube2;backgroundOutline=1;isoAngle=15;', 90, 100, '', 'Isometric Cube', true, null, 'cube box iso isometric'),
+		this.createVertexTemplateEntry('html=1;whiteSpace=wrap;shape=demoTriangle;backgroundOutline=1;isoAngle=15;', 200, 200, '', 'Demo Triangle', true, null, 'triangle demo'),
+		this.createVertexTemplateEntry('html=1;whiteSpace=wrap;shape=demoRoundedTRSquare;backgroundOutline=1;isoAngle=15;', 200, 100, '', 'Demo Rounded Top Right', true, null, 'square rounded demo')
+	];
+
+	this.addPaletteFunctions('demo', mxResources.get('demo'), (expand != null) ? expand : true, fns);
+	this.setCurrentSearchEntryLibrary();
+};
+
 /**
  * Adds the container palette to the sidebar.
  */

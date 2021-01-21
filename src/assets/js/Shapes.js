@@ -339,41 +339,86 @@
 
 	mxCellRenderer.registerShape('isoRectangle', IsoRectangleShape);
 
+	function DemoTriangle() {
+		mxActor.call(this);
+	}
+
+	mxUtils.extend(DemoTriangle, mxActor);
+
+	DemoTriangle.prototype.size = 30;
+
+	DemoTriangle.prototype.redrawPath = function(path, x, y, w, h) {
+
+		path.moveTo(0, h);
+		path.lineTo(w, h);
+		path.lineTo(w/2, 0);
+		path.close();
+	};
+
+	mxCellRenderer.registerShape('demoTriangle', DemoTriangle);
+
+
+	function DemoRoundedTRSquare() {
+		mxActor.call(this);
+	}
+
+	mxUtils.extend(DemoRoundedTRSquare, mxActor);
+
+	DemoRoundedTRSquare.prototype.size = 60;
+
+
+	DemoRoundedTRSquare.prototype.redrawPath = function(path, x, y, w, h) {
+
+		var curve = 0.5;
+		path.moveTo(0, 0);
+		path.lineTo(0, h);
+		path.lineTo(w, h);
+		path.lineTo(w, h / 4);
+		path.quadTo(w, 0, w - w / 4, 0);
+		path.close();
+		path.setFillColor('#0000FF');
+		path.setAlpha(0.2);
+		path.setStrokeAlpha(0);
+		path.end();
+	};
+
+	mxCellRenderer.registerShape('demoRoundedTRSquare', DemoRoundedTRSquare);
+
 	// Cube Shape, supports size style
-	function IsoCubeShape()
-	{
-		mxCylinder.call(this);
-	};
-	mxUtils.extend(IsoCubeShape, mxCylinder);
-	IsoCubeShape.prototype.size = 20;
-	IsoCubeShape.prototype.redrawPath = function(path, x, y, w, h, isForeground)
-	{
-		var m = Math.min(w, h / (0.5 + tan30));
+	// function IsoCubeShape()
+	// {
+	// 	mxCylinder.call(this);
+	// };
+	// mxUtils.extend(IsoCubeShape, mxCylinder);
+	// IsoCubeShape.prototype.size = 20;
+	// IsoCubeShape.prototype.redrawPath = function(path, x, y, w, h, isForeground)
+	// {
+	// 	var m = Math.min(w, h / (0.5 + tan30));
 
-		if (isForeground)
-		{
-			path.moveTo(0, 0.25 * m);
-			path.lineTo(0.5 * m, (0.5 - tan30Dx) * m);
-			path.lineTo(m, 0.25 * m);
-			path.moveTo(0.5 * m, (0.5 - tan30Dx) * m);
-			path.lineTo(0.5 * m, (1 - tan30Dx) * m);
-			path.end();
-		}
-		else
-		{
-			path.translate((w - m) / 2, (h - m) / 2);
-			path.moveTo(0, 0.25 * m);
-			path.lineTo(0.5 * m, m * tan30Dx);
-			path.lineTo(m, 0.25 * m);
-			path.lineTo(m, 0.75 * m);
-			path.lineTo(0.5 * m, (1 - tan30Dx) * m);
-			path.lineTo(0, 0.75 * m);
-			path.close();
-			path.end();
-		}
-	};
+	// 	if (isForeground)
+	// 	{
+	// 		path.moveTo(0, 0.25 * m);
+	// 		path.lineTo(0.5 * m, (0.5 - tan30Dx) * m);
+	// 		path.lineTo(m, 0.25 * m);
+	// 		path.moveTo(0.5 * m, (0.5 - tan30Dx) * m);
+	// 		path.lineTo(0.5 * m, (1 - tan30Dx) * m);
+	// 		path.end();
+	// 	}
+	// 	else
+	// 	{
+	// 		path.translate((w - m) / 2, (h - m) / 2);
+	// 		path.moveTo(0, 0.25 * m);
+	// 		path.lineTo(0.5 * m, m * tan30Dx);
+	// 		path.lineTo(m, 0.25 * m);
+	// 		path.lineTo(m, 0.75 * m);
+	// 		path.lineTo(0.5 * m, (1 - tan30Dx) * m);
+	// 		path.lineTo(0, 0.75 * m);
+	// 		path.close();
+	// 		path.end();
+	// 	}
+	// };
 
-	mxCellRenderer.registerShape('isoCube', IsoCubeShape);
+	// mxCellRenderer.registerShape('isoCube', IsoCubeShape);
 
 	
 	// DataStore Shape, supports size style
@@ -4737,24 +4782,24 @@
 	// Defines connection points for all shapes
 	IsoRectangleShape.prototype.constraints = [];
 	
-	IsoCubeShape.prototype.getConstraints = function(style, w, h)
-	{
-		var constr = [];
-		var tan30 = Math.tan(mxUtils.toRadians(30));
-		var tan30Dx = (0.5 - tan30) / 2;
-		var m = Math.min(w, h / (0.5 + tan30));
-		var dx = (w - m) / 2;
-		var dy = (h - m) / 2;
+	// IsoCubeShape.prototype.getConstraints = function(style, w, h)
+	// {
+	// 	var constr = [];
+	// 	var tan30 = Math.tan(mxUtils.toRadians(30));
+	// 	var tan30Dx = (0.5 - tan30) / 2;
+	// 	var m = Math.min(w, h / (0.5 + tan30));
+	// 	var dx = (w - m) / 2;
+	// 	var dy = (h - m) / 2;
 
-		constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx, dy + 0.25 * m));
-		constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx + 0.5 * m, dy + m * tan30Dx));
-		constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx + m, dy + 0.25 * m));
-		constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx + m, dy + 0.75 * m));
-		constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx + 0.5 * m, dy + (1 - tan30Dx) * m));
-		constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx, dy + 0.75 * m));
+	// 	constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx, dy + 0.25 * m));
+	// 	constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx + 0.5 * m, dy + m * tan30Dx));
+	// 	constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx + m, dy + 0.25 * m));
+	// 	constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx + m, dy + 0.75 * m));
+	// 	constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx + 0.5 * m, dy + (1 - tan30Dx) * m));
+	// 	constr.push(new mxConnectionConstraint(new mxPoint(0, 0), false, null, dx, dy + 0.75 * m));
 
-		return (constr);
-	};
+	// 	return (constr);
+	// };
 
 	IsoCubeShape2.prototype.getConstraints = function(style, w, h)
 	{
