@@ -357,7 +357,6 @@
 
 	mxCellRenderer.registerShape('demoTriangle', DemoTriangle);
 
-
 	function DemoRoundedTRSquare() {
 		mxActor.call(this);
 	}
@@ -365,7 +364,7 @@
 	mxUtils.extend(DemoRoundedTRSquare, mxActor);
 
 	DemoRoundedTRSquare.prototype.size = 60;
-
+	DemoRoundedTRSquare.prototype.def
 
 	DemoRoundedTRSquare.prototype.redrawPath = function(path, x, y, w, h) {
 

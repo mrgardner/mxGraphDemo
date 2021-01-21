@@ -1320,7 +1320,20 @@ Sidebar.prototype.addDemoPalette = function(expand)
 	var fns = [
 		this.createVertexTemplateEntry('html=1;whiteSpace=wrap;shape=isoCube2;backgroundOutline=1;isoAngle=15;', 90, 100, '', 'Isometric Cube', true, null, 'cube box iso isometric'),
 		this.createVertexTemplateEntry('html=1;whiteSpace=wrap;shape=demoTriangle;backgroundOutline=1;isoAngle=15;', 200, 200, '', 'Demo Triangle', true, null, 'triangle demo'),
-		this.createVertexTemplateEntry('html=1;whiteSpace=wrap;shape=demoRoundedTRSquare;backgroundOutline=1;isoAngle=15;', 200, 100, '', 'Demo Rounded Top Right', true, null, 'square rounded demo')
+
+		this.addEntry('square rounded demo', mxUtils.bind(this, function()
+	 	{
+			 //Can interpolate properties into text via %name_of_property% notation
+	 		//var cell = new mxCell('%name% Text', new mxGeometry(0, 0, 200, 100), 'html=1;whiteSpace=wrap;shape=demoRoundedTRSquare;backgroundOutline=1;isoAngle=15;');
+	 		var cell = new mxCell('', new mxGeometry(0, 0, 200, 100), 'html=1;whiteSpace=wrap;shape=demoRoundedTRSquare;backgroundOutline=1;isoAngle=15;');
+	 		cell.vertex = true;
+	 		this.graph.setAttributeForCell(cell, 'placeholders', '1');
+	 		this.graph.setAttributeForCell(cell, 'Test', 'Demo Variable');
+
+	 		return this.createVertexTemplateFromCells([cell], cell.geometry.width, cell.geometry.height, 'Demo Rounded Top Right');
+	 	})),
+
+		// this.createVertexTemplateEntry('html=1;whiteSpace=wrap;shape=demoRoundedTRSquare;backgroundOutline=1;isoAngle=15;', 200, 100, '', 'Demo Rounded Top Right', true, null, 'square rounded demo')
 	];
 
 	this.addPaletteFunctions('demo', mxResources.get('demo'), (expand != null) ? expand : true, fns);
