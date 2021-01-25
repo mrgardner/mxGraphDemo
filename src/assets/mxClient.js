@@ -87735,11 +87735,21 @@ mxEditor.prototype.createProperties = function (cell)
 
 		for (var i = 0; i < attrs.length; i++)
 		{
-			// Creates a textarea with more lines for
-			// the cell label
+
+			var name = attrs[i].nodeName;
 			var val = attrs[i].value;
-			texts[i] = form.addTextarea(attrs[i].nodeName, val,
+
+			console.log(name);
+
+			if (name.indexOf('_READONLY') > -1) {
+				var readOnly = form.addText(name.replace('_READONLY', ''), val);
+				readOnly.setAttribute('readonly', 'true');
+			} else {
+				// Creates a textarea with more lines for
+				// the cell label
+				texts[i] = form.addTextarea(attrs[i].nodeName, val,
 				(attrs[i].nodeName == 'label') ? 4 : 2);
+			}
 		}
 
 		// Adds an OK and Cancel button to the dialog

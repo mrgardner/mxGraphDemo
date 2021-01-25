@@ -1425,9 +1425,35 @@ var EditDataDialog = function(ui, cell)
 	
 	for (var i = 0; i < temp.length; i++)
 	{
-		addTextArea(count, temp[i].name, temp[i].value);
+
+		var propName = temp[i].name;
+		var propValue = temp[i].value;
+
+		if (propName.indexOf('_READONLY') > -1) {
+			
+			var text = document.createElement('div');
+			text.style.width = '100%';
+			text.style.fontSize = '11px';
+			text.style.textAlign = 'center';
+			mxUtils.write(text, propValue);
+
+			form.addField(propName.replace('_READONLY', '') + ':', text);
+		} else if (propName.indexOf('_HIDDEN') > -1) {
+			console.log('Hidden field: ' + propName.replace('_HIDDEN', '') + ': ' + propValue);
+			// Do nothing
+		} else {
+			addTextArea(count, propName, propValue);
+		}
+
+		
 		count++;
 	}
+
+	// for (var i = 0; i < temp.length; i++)
+	// {
+	// 	addTextArea(count, temp[i].name, temp[i].value);
+	// 	count++;
+	// }
 	
 	var top = document.createElement('div');
 	top.style.cssText = 'position:absolute;left:30px;right:30px;overflow-y:auto;top:30px;bottom:80px;';

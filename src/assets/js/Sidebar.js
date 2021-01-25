@@ -1328,10 +1328,67 @@ Sidebar.prototype.addDemoPalette = function(expand)
 	 		var cell = new mxCell('', new mxGeometry(0, 0, 200, 100), 'html=1;whiteSpace=wrap;shape=demoRoundedTRSquare;backgroundOutline=1;isoAngle=15;');
 	 		cell.vertex = true;
 	 		this.graph.setAttributeForCell(cell, 'placeholders', '1');
-	 		this.graph.setAttributeForCell(cell, 'Test', 'Demo Variable');
+	 		this.graph.setAttributeForCell(cell, 'DemoDefault', 'Testing - change me', {});
+	 		this.graph.setAttributeForCell(cell, 'DemoReadOnly', 'Testing', { readOnly: true });
+	 		this.graph.setAttributeForCell(cell, 'DemoHidden', 'Secret Testing', { hidden: true });
 
 	 		return this.createVertexTemplateFromCells([cell], cell.geometry.width, cell.geometry.height, 'Demo Rounded Top Right');
-	 	})),
+		 })),
+		 
+		this.addEntry('square rounded demo group', mxUtils.bind(this, function()
+		{
+
+			var cell0 = new mxCell('', new mxGeometry(0, 0, 600, 200), 'strokeColor=none;fillColor=none;');
+			cell0.vertex = true;
+
+			var cell1 = new mxCell('', new mxGeometry(0, 0, 300, 200), 'html=1;whiteSpace=wrap;shape=demoRoundedTRSquare;backgroundOutline=1;isoAngle=15;');
+			cell1.vertex = true;
+	 		this.graph.setAttributeForCell(cell1, 'placeholders', '1');
+	 		this.graph.setAttributeForCell(cell1, 'DemoDefault', 'Testing 1 - change me', {});
+	 		this.graph.setAttributeForCell(cell1, 'DemoReadOnly', 'Testing 1', { readOnly: true });
+			this.graph.setAttributeForCell(cell1, 'DemoHidden', 'Secret Testing 1', { hidden: true });
+			cell0.insert(cell1);
+			
+			var cell2 = new mxCell('', new mxGeometry(0, 30, 270, 170), 'html=1;whiteSpace=wrap;shape=demoRoundedTRSquare;backgroundOutline=1;isoAngle=15;');
+	 		cell2.vertex = true;
+	 		this.graph.setAttributeForCell(cell2, 'placeholders', '1');
+	 		this.graph.setAttributeForCell(cell2, 'DemoDefault', 'Testing 2 - change me', {});
+	 		this.graph.setAttributeForCell(cell2, 'DemoReadOnly', 'Testing 2', { readOnly: true });
+			this.graph.setAttributeForCell(cell2, 'DemoHidden', 'Secret Testing 2', { hidden: true });
+			cell1.insert(cell2);
+
+			var cell3 = new mxCell('', new mxGeometry(0, 30, 240, 140), 'html=1;whiteSpace=wrap;shape=demoRoundedTRSquare;backgroundOutline=1;isoAngle=15;');
+			cell3.vertex = true;
+	 		this.graph.setAttributeForCell(cell3, 'placeholders', '1');
+	 		this.graph.setAttributeForCell(cell3, 'DemoDefault', 'Testing 3 - change me', {});
+	 		this.graph.setAttributeForCell(cell3, 'DemoReadOnly', 'Testing 3', { readOnly: true });
+			this.graph.setAttributeForCell(cell3, 'DemoHidden', 'Secret Testing 3', { hidden: true });
+			cell2.insert(cell3);
+
+			// var cell4 = new mxCell('', new mxGeometry(50, 50, 140, 40),
+			// 	 'strokeColor=#000000;fillColor=#FFFFFF;');
+			// 	 cell4.vertex = true;
+			// cell3.insert(cell4);
+
+			var field1 = new mxCell('Asset', new mxGeometry(0, 0, 140, 50), 'html=1;align=center;verticalAlign=middle;rotatable=0;strokeColor=#000000;fillColor=#FFFFFF;');
+			field1.geometry.relative = true;
+			field1.geometry.offset = new mxPoint(50, 50);
+			field1.vertex = true;
+			cell3.insert(field1);
+
+			var cell5 = new mxCell('', new mxGeometry(450, 110, 140, 50), 'shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;');
+			cell5.vertex = true;
+			cell0.insert(cell5);
+
+			var assoc1 = new mxCell('Connection', new mxGeometry(0, 0, 0, 0), 'edgeStyle=none;endArrow=none;verticalAlign=bottom;labelBackgroundColor=none;endSize=12;html=1;align=left;endFill=0;exitX=1;exitY=.5;entryX=0;entryY=.5;spacingLeft=4;');
+			assoc1.geometry.relative = true;
+			assoc1.edge = true;
+			field1.insertEdge(assoc1, true);
+			cell5.insertEdge(assoc1, false);
+			cell0.insert(assoc1);
+	 		
+			return this.createVertexTemplateFromCells([cell0], cell0.geometry.width, cell0.geometry.height, 'Custom Group'); 
+		}))
 
 		// this.createVertexTemplateEntry('html=1;whiteSpace=wrap;shape=demoRoundedTRSquare;backgroundOutline=1;isoAngle=15;', 200, 100, '', 'Demo Rounded Top Right', true, null, 'square rounded demo')
 	];

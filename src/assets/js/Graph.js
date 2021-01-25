@@ -7567,9 +7567,10 @@ if (typeof mxVertexHandler != 'undefined')
 		/**
 		 * Sets the link for the given cell.
 		 */
-		Graph.prototype.setAttributeForCell = function(cell, attributeName, attributeValue)
+		Graph.prototype.setAttributeForCell = function(cell, attributeName, attributeValue, opts)
 		{
 			var value = null;
+			const { readOnly, hidden } = opts || {};
 			
 			if (cell.value != null && typeof(cell.value) == 'object')
 			{
@@ -7585,6 +7586,15 @@ if (typeof mxVertexHandler != 'undefined')
 			
 			if (attributeValue != null)
 			{
+
+				if (hidden) {
+					attributeName += '_HIDDEN'
+				}
+
+				if (readOnly) {
+					attributeName += '_READONLY';
+				}
+
 				value.setAttribute(attributeName, attributeValue);
 			}
 			else
